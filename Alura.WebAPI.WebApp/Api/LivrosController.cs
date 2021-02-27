@@ -8,7 +8,30 @@ using System.Threading.Tasks;
 
 namespace Alura.WebAPI.WebApp.Api
 {
-    public class LivrosController : Controller
+    /// <summary>
+    /// Herdando a classe da ControllerBase, não é possível trabalhar mais com
+    /// a resposta do tipo Json diretamente como é feita na Controller do html
+    /// tampouco com as views
+    /// 
+    /// Necessário criar uma anotação [ApiController] indicando que esta 
+    /// controller é do tipo api
+    /// 
+    /// Necessário também criar uma anotação do tipo route [Route("rota")] 
+    /// onde eu indico tanto as rotas básicas necessárias quanto também
+    /// o id que preciso passar para as Actions que necessitam dela
+    /// 
+    /// As actions que não tem rotas definidas estão apenas utilizando
+    /// a rota definida direto na controller, fazendo suas ações de acordo
+    /// com o tipo de verbo e o conteúdo da request body
+    /// 
+    /// Nas actions que pedem conteúdo de request body, eu obrigatoriamente
+    /// devo passar uma anotação [FromBody] indicando que virá paramêtros
+    /// do body da requisição
+    /// </summary>
+
+    [ApiController]
+    [Route("[controller]")] // aqui a rota está pegando automaticamente o nome do controlador
+    public class LivrosController : ControllerBase
     {
         private readonly IRepository<Livro> _repo;
 
@@ -18,6 +41,7 @@ namespace Alura.WebAPI.WebApp.Api
         }
 
         [HttpGet]
+        [Route("{id}")] // aqui estou setando o id sendo passado como parametro da url
         public IActionResult Recuperar(int id)
         {
             var model = _repo.Find(id);
@@ -25,7 +49,7 @@ namespace Alura.WebAPI.WebApp.Api
             {
                 return NotFound();
             }
-            return Json(model.ToModel());
+            return Ok(model.ToModel());
         }
 
         [HttpPost]
@@ -41,7 +65,7 @@ namespace Alura.WebAPI.WebApp.Api
             return BadRequest();
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult Alterar([FromBody]LivroUpload model)
         {
             if (ModelState.IsValid)
@@ -61,7 +85,8 @@ namespace Alura.WebAPI.WebApp.Api
         }
 
         [HttpDelete]
-        public IActionResult Remover(int id)
+        [Route("{id}")] // mesma coisa acima
+        public IActionResult Excluir(int id)
         {
             var model = _repo.Find(id);
             if (model == null)
