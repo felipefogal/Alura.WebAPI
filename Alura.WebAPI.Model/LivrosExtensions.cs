@@ -33,6 +33,20 @@ namespace Alura.ListaLeitura.Modelos
             };
         }
 
+        public static LivroToApi TransferToApi(this Livro livro)
+        {
+            return new LivroToApi
+            {
+                Id = livro.Id,
+                Titulo = livro.Titulo,
+                Subtitulo = livro.Subtitulo,
+                Resumo = livro.Resumo,
+                Autor = livro.Autor,
+                ImagemCapa = $"livros/{livro.Id}/capa",
+                Lista = livro.Lista
+            };
+        }
+
         public static LivroApi ToApi(this Livro livro)
         {
             return new LivroApi
