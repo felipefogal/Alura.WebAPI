@@ -46,6 +46,7 @@ namespace Alura.ListaLeitura.WebApp
 
             services.AddMvc(options => {
                 options.OutputFormatters.Add(new LivroCsvFormatter());
+                options.OutputFormatters.Add(new ListaLeituraCsvFormatter());
             }).AddXmlSerializerFormatters();
         }
 
