@@ -30,7 +30,7 @@ namespace Alura.WebAPI.WebApp.Api
     /// </summary>
 
     [ApiController]
-    [Route("[controller]")] // aqui a rota está pegando automaticamente o nome do controlador
+    [Route("api/[controller]")] // aqui a rota está pegando automaticamente o nome do controlador
     public class LivrosController : ControllerBase
     {
         private readonly IRepository<Livro> _repo;
@@ -49,7 +49,7 @@ namespace Alura.WebAPI.WebApp.Api
             {
                 return NotFound();
             }
-            return Ok(model.ToModel());
+            return Ok(model.ToWebApi());
         }
 
         [HttpGet("{id}/capa")]
@@ -70,7 +70,7 @@ namespace Alura.WebAPI.WebApp.Api
         [HttpGet]
         public IActionResult ListaDeLivros()
         {
-            var lista = _repo.All.Select(l => l.ToModel()).ToList();
+            var lista = _repo.All.Select(l => l.ToApi()).ToList();
             return Ok(lista);
         }
 
