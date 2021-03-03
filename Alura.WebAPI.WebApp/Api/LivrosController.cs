@@ -1,5 +1,6 @@
 ﻿using Alura.ListaLeitura.Modelos;
 using Alura.ListaLeitura.Persistencia;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace Alura.WebAPI.WebApp.Api
     /// do body da requisição
     /// </summary>
 
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")] // aqui a rota está pegando automaticamente o nome do controlador
     public class LivrosController : ControllerBase
@@ -65,7 +67,6 @@ namespace Alura.WebAPI.WebApp.Api
             }
             return File("~/images/capas/capa-vazia.png", "image/png");
         }
-
 
         [HttpGet]
         public IActionResult ListaDeLivros()
