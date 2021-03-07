@@ -73,5 +73,18 @@ namespace Alura.ListaLeitura.Modelos
                 Lista = livro.Lista
             };
         }
+
+        public static LivroUpload ToUpload(this LivroToApi livro)
+        {
+            return new LivroUpload
+            {
+                Id = livro.Id,
+                Titulo = livro.Titulo,
+                Subtitulo = livro.Subtitulo,
+                Resumo = livro.Resumo,
+                Autor = livro.Autor,
+                Lista = livro.Lista.ParaTipo()
+            };
+        }
     }
 }

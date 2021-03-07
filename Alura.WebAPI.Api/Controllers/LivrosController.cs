@@ -30,7 +30,7 @@ namespace Alura.ListaLeitura.Api.Controllers
     /// do body da requisição
     /// </summary>
 
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")] // aqui a rota está pegando automaticamente o nome do controlador
     public class LivrosController : ControllerBase

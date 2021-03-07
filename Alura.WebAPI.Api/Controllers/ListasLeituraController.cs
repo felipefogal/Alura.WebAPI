@@ -10,7 +10,7 @@ using Lista = Alura.ListaLeitura.Modelos.ListaLeitura; // um alias de lista de l
 
 namespace Alura.ListaLeitura.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ListasLeituraController : ControllerBase
